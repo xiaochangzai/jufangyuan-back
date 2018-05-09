@@ -35,6 +35,6 @@ public class UserController {
         System.out.println("用户" + bean.getUserId() + "进入 /addUser.do 接口"  );
         // 调用service层
         result = userServices.addUser(bean);
-        return result;
+        return result;//
     }
 }
