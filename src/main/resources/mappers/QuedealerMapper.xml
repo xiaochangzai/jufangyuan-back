@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jufangyuan.daos.QuedealDao">
+    <insert id="addQuedeal" parameterType="com.jufangyuan.beans.QuedealBean">
+        INSERT INTO quedealer (givId,userId,dealTime,answers,score) VALUES (#{giveId},#{userId},#{dealTime},#{answers},#{score})
+    </insert>
+
+    <select id="getQuedealByGivId" parameterType="java.lang.Integer" resultType="com.jufangyuan.beans.QuedealBean">
+        SELECT
+          d.vrId,
+          d.userId,
+          u.`nickName`,
+          u.`headImg`,
+          d.dealTime,
+          d.score
+        FROM
+          quedealer d
+
+          LEFT JOIN USER u
+            ON u.userId = d.`userId`
+              WHERE givId=#{vrId}
+    </select>
+</mapper>

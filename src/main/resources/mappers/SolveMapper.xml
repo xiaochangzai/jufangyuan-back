@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jufangyuan.daos.SolveDao">
+    <select id="getSolveById" resultType="com.jufangyuan.beans.SolveBean">
+        SELECT vrId,userId,startTime,endTime FROM solve WHERE vrId=#{id}
+    </select>
+
+    <insert id="addSolve" parameterType="com.jufangyuan.beans.SolveBean" useGeneratedKeys="true">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="vrId">
+            SELECT MAX(vrId) vrId FROM solve
+        </selectKey>
+        INSERT INTO solve (startTime,userId) VALUES (#{startTime},#{userId})
+    </insert>
+
+    <update id="alterSolve" parameterType="com.jufangyuan.beans.SolveBean">
+        UPDATE solve SET answerId=#{answerId},solveTime=#{solveTime},userId=#{userId} WHERE vrId=#{vrId}
+    </update>
+
+    <delete id="delSolveById">
+        DELETE FROM solve WHERE vrId=#{id}
+    </delete>
+</mapper>

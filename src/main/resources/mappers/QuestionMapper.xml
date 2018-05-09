@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jufangyuan.daos.QuestionDao">
+    <select id="getQuestionById" resultType="com.jufangyuan.beans.QuestionsBean">
+        SELECT vrId,title,answers,createTime FROM questions WHERE vrId=#{id}
+    </select>
+
+    <select id="getQuestions" parameterType="com.jufangyuan.beans.QuestionsBean" resultType="com.jufangyuan.beans.QuestionsBean">
+        SELECT vrId,title,answers,createTime FROM questions LIMIT 0,1
+        <if test="notArr != null and notArr.length > 0">
+            WHERE vrId NOT IN
+            <foreach collection="notArr" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="getQuestionsAll" resultType="com.jufangyuan.beans.QuestionsBean">
+        SELECT vrId,title,answers,createTime FROM questions
+    </select>
+
+    <select id="getGiverQuestions" resultType="com.jufangyuan.beans.QuestionsBean">
+
+      SELECT vrId,answers,title FROM questions WHERE vrId IN
+        <foreach collection="array" open="(" close=")" item="item" separator=",">
+            #{item}
+        </foreach>
+
+    </select>
+    <insert id="addQuestion" parameterType="com.jufangyuan.beans.QuestionsBean">
+        INSERT INTO questions (title,answers,createTime) VALUES(#{title},#{answers},#{createTime})
+    </insert>
+
+    <update id="alterQuestion" parameterType="com.jufangyuan.beans.QuestionsBean">
+        UPDATE questions SET title=#{title},answers=#{answers} WHERE vrId=#{vrId}
+    </update>
+
+    <delete id="delQuestionById" parameterType="java.lang.Integer">
+        DELETE FROM questions WHERE vrId=#{id}
+    </delete>
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jufangyuan.daos.AnswerDao">
+   <select id="getAnswerById" resultType="com.jufangyuan.beans.AnswerBean">
+    SELECT ansIndex FROM answer WHERE vrId=#{id}
+   </select>
+
+    <insert id="addAnswer" parameterType="com.jufangyuan.beans.AnswerBean">
+        INSERT INTO answer(ansIndex,ansTitle) VALUES (#{ansU=Index},#{ansTitle})
+    </insert>
+    <update id="alterAnswer" parameterType="com.jufangyuan.beans.AnswerBean">
+        UPDATE answer SET ansindex=#{ansIndex},ansTitle=#{ansTitle} WHERE vrId=#{vrId}
+    </update>
+    <select id="getAnswers" parameterType="com.jufangyuan.beans.AnswerBean" resultType="com.jufangyuan.beans.AnswerBean">
+    SELECT vrId,ansIndex,ansTitle FROM answer
+    </select>
+</mapper>

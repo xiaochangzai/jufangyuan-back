@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jufangyuan.daos.UserDao">
+    <insert id="addUser" parameterType="com.jufangyuan.beans.UserBean">
+            INSERT INTO USER (nickName,userId,headImg) VALUES(#{nickName},#{userId},#{headImg})
+    </insert>
+
+    <select id="getUserById" parameterType="java.lang.String" resultType="com.jufangyuan.beans.UserBean">
+          SELECT vrId,nickName,headImg,userId FROM USER WHERE userId=#{id}
+    </select>
+</mapper>

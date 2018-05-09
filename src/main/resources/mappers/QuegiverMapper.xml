@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jufangyuan.daos.QuegiverDao">
+    <insert id="addQuegiver" parameterType="com.jufangyuan.beans.QuegiverBean" useGeneratedKeys="true">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="vrId">
+            SELECT MAX(vrId) vrId FROM queGiver
+        </selectKey>
+      INSERT INTO queGiver (answers,createTime,giverId) VALUES (#{answers},#{createTime},#{giverId})
+
+    </insert>
+
+    <select id="getQuegiverById" parameterType="java.lang.String" resultType="com.jufangyuan.beans.QuegiverBean">
+        SELECT answers,createTime,giverId FROM quegiver WHERE vrId =#{vrId}
+    </select>
+
+    <select id="getGiverInfo" parameterType="com.jufangyuan.beans.QuegiverBean" resultType="com.jufangyuan.beans.QuegiverBean">
+        SELECT
+          nickName,
+          headImg,
+          (SELECT
+            score
+          FROM
+            quedealer
+          WHERE givId = #{vrId}
+            AND userId = #{userId}
+          ORDER BY score DESC
+          LIMIT 0, 1) myscore
+        FROM
+          USER
+        WHERE userId =
+          (SELECT
+            giverId
+          FROM
+            quegiver
+          WHERE vrId = #{vrId})
+    </select>
+</mapper>
