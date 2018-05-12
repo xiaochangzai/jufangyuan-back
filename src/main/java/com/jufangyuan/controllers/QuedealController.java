@@ -26,8 +26,8 @@ public class QuedealController {
                 .validate(request);
         if (result != null){
             return result;
-}
-    QuedealBean bean = new QuedealBean();
+        }
+        QuedealBean bean = new QuedealBean();
         bean.setAnswers(request.getParameter("answers"));
                 bean.setDealTime(Util.getNowTime());
                 bean.setGiveId(Integer.parseInt(request.getParameter("giveId")));
@@ -46,4 +46,24 @@ public class QuedealController {
         result = quedealServices.getQuedealByGivId(Integer.parseInt(request.getParameter("giveId")));
         return result;
     }
+
+
+    @RequestMapping("/getDealByUser.do")
+    public HashMap<String, Object> getDealByUser(HttpServletRequest request, HttpServletResponse response){
+        HashMap<String, Object> result = new ParamsUtil().put("userId","String",1,32,0,0).validate(request);
+        if (result != null) return result;
+        result = quedealServices.getDealByUser(request.getParameter("userId"));
+        return result;
+    }
+
+
+    @RequestMapping("/getDealById.do")
+    public HashMap<String, Object> getDealById(HttpServletRequest request, HttpServletResponse response){
+        HashMap<String, Object> result = new ParamsUtil().put("id","String",1,32,0,0).validate(request);
+        if (result != null) return result;
+        // 调用service层
+        result = quedealServices.getDealById(request.getParameter("id"));
+        return result;
+    }
+
 }

@@ -36,4 +36,26 @@
             quegiver
           WHERE vrId = #{vrId})
     </select>
+
+    <select id="getGiverListByUser" parameterType="java.lang.String" resultType="com.jufangyuan.beans.QuegiverBean">
+        SELECT
+          vrId,
+          createTime,
+          maxScore,
+          dealNum
+        FROM
+          quegiver
+        WHERE giverId = #{userId}
+    </select>
+    <update id="updateQuedeal" parameterType="com.jufangyuan.beans.QuegiverBean">
+        UPDATE
+        quegiver
+        SET
+        <if test="maxScore != null and maxScore != -1">
+            maxScore = #{maxScore},
+        </if>
+
+        dealNum = #{dealNum}
+        WHERE vrId=#{vrId}
+    </update>
 </mapper>

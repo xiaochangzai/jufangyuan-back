@@ -9,4 +9,9 @@ public interface QuedealDao {
     public int addQuedeal(QuedealBean bean);
 
     public List<QuedealBean> getQuedealByGivId(@Param("vrId") int vrId);
+
+    public List<QuedealBean> getDealByUser(@Param("userId") String userId);
+
+    public QuedealBean getDealById(@Param("id") String id);
+
 }

@@ -6,6 +6,8 @@ public class QuegiverBean extends UserBean{
     private String createTime;
     private String giverId;
     private float myscore;
+    private int maxScore;
+    private int dealNum;
 
     @Override
     public int getVrId() {
@@ -49,5 +51,21 @@ public class QuegiverBean extends UserBean{
 
     public void setMyscore(float myscore) {
         this.myscore = myscore;
+    }
+
+    public int getMaxScore() {
+        return maxScore;
+    }
+
+    public void setMaxScore(int maxScore) {
+        this.maxScore = maxScore;
+    }
+
+    public int getDealNum() {
+        return dealNum;
+    }
+
+    public void setDealNum(int dealNum) {
+        this.dealNum = dealNum;
     }
 }

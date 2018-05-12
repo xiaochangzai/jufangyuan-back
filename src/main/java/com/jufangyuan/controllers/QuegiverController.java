@@ -65,4 +65,15 @@ public class QuegiverController {
         result = quegiverServices.getGiverInfo(bean);
         return result;
     }
+
+    @RequestMapping("/getGiverListByUser.do")
+    public HashMap<String, Object> getGiverListByUser(HttpServletRequest request, HttpServletResponse response){
+        HashMap<String, Object> result = new ParamsUtil()
+                    .put("userId","String",1,32,0,0)
+                    .validate(request);
+        if (result != null) return result;
+
+        result = quegiverServices.getGiverListByUser(request.getParameter("userId"));
+        return result;
+    }
 }

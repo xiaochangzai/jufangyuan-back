@@ -10,4 +10,6 @@ public interface QuegiverServices {
     public HashMap<String,Object> getQuestionsByGiverId(String giverId);
 
     public HashMap<String, Object> getGiverInfo(QuegiverBean bean);
+
+    public HashMap<String, Object> getGiverListByUser(String userId);
 }

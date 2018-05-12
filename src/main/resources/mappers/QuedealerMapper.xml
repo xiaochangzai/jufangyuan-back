@@ -22,4 +22,28 @@
             ON u.userId = d.`userId`
               WHERE givId=#{vrId}
     </select>
+
+    <select id="getDealByUser" parameterType="java.lang.String" resultType="com.jufangyuan.beans.QuedealBean">
+        SELECT
+          d.vrId,
+          d.givId giveId,
+          d.score,
+          d.dealTime,
+          d.answers,
+          g.`giverId`,
+          u.`nickName`,
+          u.`headImg`
+        FROM
+          quedealer d,
+          quegiver g,
+          USER u
+        WHERE d.userId = #{userId}
+          AND d.`givId` = g.`vrId`
+          AND u.`userId` = g.giverId
+
+    </select>
+
+    <select id="getDealById" parameterType="java.lang.String" resultType="com.jufangyuan.beans.QuedealBean">
+      SELECT d.answers,d.score,d.dealTime,g.`answers` givAnswers FROM quedealer d,quegiver g WHERE d.vrId=#{id} AND d.`givId` = g.`vrId`
+    </select>
 </mapper>

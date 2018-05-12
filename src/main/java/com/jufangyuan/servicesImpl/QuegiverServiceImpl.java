@@ -70,4 +70,23 @@ public class QuegiverServiceImpl implements QuegiverServices {
         result.put("result",map);
         return result;
     }
+
+    @Override
+    public HashMap<String, Object> getGiverListByUser(String userId) {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        List<QuegiverBean> list = quegiverDao.getGiverListByUser(userId);
+        List<Map<String, Object>> tempList = new ArrayList<Map<String, Object>>();
+        for (QuegiverBean bean : list){
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("vrId",bean.getVrId());
+            map.put("createTime",bean.getCreateTime());
+            map.put("maxScore",bean.getMaxScore());
+            map.put("dealNum",bean.getDealNum());
+            tempList.add(map);
+        }
+        result.put("flag",1);
+        result.put("message","获取出题记录成功！");
+        result.put("result",tempList);
+        return result;
+    }
 }
