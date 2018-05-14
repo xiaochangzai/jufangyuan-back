@@ -54,7 +54,7 @@ public class QuegiverController {
     public HashMap<String, Object> getGiverInfo(HttpServletRequest request, HttpServletResponse response){
         System.out.println("用户进入: /getGiverInfo.do 接口" );
         HashMap<String,Object> result = new ParamsUtil()
-                    .put("giveId","Integer",1,32,0,100000000)
+                .put("giveId","Integer",1,32,0,100000000)
                     .put("userId","String",1,32,0,0)
                     .validate(request);
         if (result != null) return  result;
