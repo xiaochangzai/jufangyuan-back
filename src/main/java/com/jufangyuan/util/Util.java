@@ -15,5 +15,14 @@ public class Util {
         String nowTime = sdf.format(d);
         return nowTime;
     }
+    public static int ByteArrayToInt(byte[] bArr) {    
+        if(bArr.length!=4){    
+            return -1;    
+        }    
+        return (int) ((((bArr[3] & 0xff) << 24)      
+                   | ((bArr[2] & 0xff) << 16)      
+                   | ((bArr[1] & 0xff) << 8)  
+| ((bArr[0] & 0xff) << 0)));     
+}  
 
 }

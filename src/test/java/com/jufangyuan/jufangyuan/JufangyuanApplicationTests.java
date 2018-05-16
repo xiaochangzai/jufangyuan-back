@@ -55,7 +55,7 @@ public class JufangyuanApplicationTests {
 
         String result = HttpRequest.sendGet(url,params);
         System.out.println("---->");
-        System.out.println(result);
+        System.out.println(result.toLowerCase());
 
     }
 }
