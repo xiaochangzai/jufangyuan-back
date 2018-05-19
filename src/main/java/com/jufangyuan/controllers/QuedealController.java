@@ -65,5 +65,40 @@ public class QuedealController {
         result = quedealServices.getDealById(request.getParameter("id"));
         return result;
     }
+    
+    @RequestMapping("/updateDeal.do")
+    public HashMap<String, Object> updateDeal(HttpServletRequest request, HttpServletResponse response){
+    	HashMap<String, Object> result ;
+    	ParamsUtil paramsUtil = new ParamsUtil();
+    	paramsUtil.put("vrId", "String", 1, 100, 0, 1000000000);
+    	String answers = request.getParameter("answers");
+    	String score = request.getParameter("score");
+    	String isBuy = request.getParameter("isBuy");
+    	if(answers != null && !"".equals(answers)) 
+    		paramsUtil.put("answers", "String", 1, 520, 0, 0);
+    	if(score != null && !"".equals(score))
+    		paramsUtil.put("score", "int", 1, 3, 0, 100);
+    	if(isBuy != null && !"".equals(isBuy))
+    		paramsUtil.put("isBuy", "int", 1, 1, 0, 1);
+    	
+    	result = paramsUtil.validate(request);
+    	if(result != null) {
+    		return result;
+    	}
+    	
+    	// 调用service层
+    	QuedealBean bean = new QuedealBean();
+    	bean.setVrId(Integer.parseInt(request.getParameter("vrId")));
+    	if(answers != null && !"".equals(answers))
+    		bean.setAnswers(request.getParameter("answers"));
+    	if(score != null && !"".equals(score))
+    		bean.setScore(Integer.parseInt(request.getParameter("score")));
+    	if(isBuy != null && !"".equals(isBuy))
+    		bean.setIsBuy(Integer.parseInt(request.getParameter("isBuy")));
+    	
+    	result = quedealServices.updateDeal(bean);
+    	
+    	return result;
+    }
 
 }

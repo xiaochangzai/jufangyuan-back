@@ -105,9 +105,9 @@ public class QuedealServiceImpl implements QuedealServices {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("answers",bean.getAnswers());
         map.put("score",bean.getScore());
-        map.put("dealTimw",bean.getDealTime());
+        map.put("dealTime",bean.getDealTime());
         map.put("givAnswers",bean.getGivAnswers());
-
+        map.put("isBuy", bean.getIsBuy());
         String answers = bean.getGivAnswers();
         String[] tempArr = answers.split(",");
         ArrayList<Integer> list = new ArrayList<Integer>();
@@ -124,5 +124,20 @@ public class QuedealServiceImpl implements QuedealServices {
         result.put("result",map);
         return result;
     }
+
+	@Override
+	public HashMap<String, Object> updateDeal(QuedealBean bean) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> result = new HashMap<String,Object>();
+		int flag = quedealDao.updateDeal(bean);
+		result.put("state", flag);
+		if(flag > 0) {
+			result.put("message","修改信息成功！");
+			
+		}else {
+			result.put("message", "修改信息失败！");
+		}
+		return result;
+	}
 
 }

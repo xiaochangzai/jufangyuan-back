@@ -12,4 +12,6 @@ public interface QuedealServices {
     public HashMap<String, Object> getDealByUser(String userId);
 
     public HashMap<String, Object> getDealById(String id);
+    
+    public HashMap<String, Object> updateDeal(QuedealBean bean);
 }

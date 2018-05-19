@@ -8,6 +8,7 @@ public class QuedealBean extends UserBean{
     private String answers;
     private float score;
     private String givAnswers;
+    private int isBuy;
 
     public int getVrId() {
         return vrId;
@@ -64,4 +65,13 @@ public class QuedealBean extends UserBean{
     public void setGivAnswers(String givAnswers) {
         this.givAnswers = givAnswers;
     }
+
+	public int getIsBuy() {
+		return isBuy;
+	}
+
+	public void setIsBuy(int isBuy) {
+		this.isBuy = isBuy;
+	}
+    
 }

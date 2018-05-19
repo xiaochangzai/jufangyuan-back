@@ -44,16 +44,17 @@
     </select>
 
     <select id="getDealById" parameterType="java.lang.String" resultType="com.jufangyuan.beans.QuedealBean">
-      SELECT d.answers,d.score,d.dealTime,g.`answers` givAnswers FROM quedealer d,quegiver g WHERE d.vrId=#{id} AND d.`givId` = g.`vrId`
+      SELECT d.answers,d.score,d.dealTime,d.isBuy,g.`answers` givAnswers FROM quedealer d,quegiver g WHERE d.vrId=#{id} AND d.`givId` = g.`vrId`
     </select>
     
     <update id="updateDeal">
     	UPDATE quedealer SET 
-    	dealTime='',
-    	answers='',
-    	score=1,
-    	isBuy=1 
+    	<if test="dealTime != null">dealTime=#{dealTime},</if>
+    	<if test="answers != null">answers=#{answers},</if>
+    	<if test="score != null">score=#{score},</if>
+    	<if test="isBuy != null">isBuy=#{isBuy}</if>
+    	 
     	WHERE 
-    	vrId=1
+    	vrId=#{vrId}
     </update>
 </mapper>
