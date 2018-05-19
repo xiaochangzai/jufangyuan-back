@@ -46,4 +46,14 @@
     <select id="getDealById" parameterType="java.lang.String" resultType="com.jufangyuan.beans.QuedealBean">
       SELECT d.answers,d.score,d.dealTime,g.`answers` givAnswers FROM quedealer d,quegiver g WHERE d.vrId=#{id} AND d.`givId` = g.`vrId`
     </select>
+    
+    <update id="updateDeal">
+    	UPDATE quedealer SET 
+    	dealTime='',
+    	answers='',
+    	score=1,
+    	isBuy=1 
+    	WHERE 
+    	vrId=1
+    </update>
 </mapper>

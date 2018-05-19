@@ -13,5 +13,7 @@ public interface QuedealDao {
     public List<QuedealBean> getDealByUser(@Param("userId") String userId);
 
     public QuedealBean getDealById(@Param("id") String id);
+    
+    public int updateDeal(QuedealBean bean);
 
 }
