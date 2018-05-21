@@ -65,7 +65,7 @@ public class QuedealServiceImpl implements QuedealServices {
             map.put("headImg",bean.getHeadImg());
             map.put("dealTime",bean.getDealTime());
             map.put("score",bean.getScore());
-
+            map.put("isBuy", bean.getIsBuy());
             list1.add(map);
         }
 

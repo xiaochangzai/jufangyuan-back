@@ -14,7 +14,8 @@
           u.`nickName`,
           u.`headImg`,
           d.dealTime,
-          d.score
+          d.score,
+          d.isBuy
         FROM
           quedealer d
 

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jufangyuan.daos.OrdersDao">
+	<insert id="addOrder">
+		INSERT INTO orders (orderId,createTime,title,detail,primkey,price,userId) VALUES(#{orderId},#{createTime},#{title},#{detail},#{primkey},#{price},#{userId})
+	</insert>
+</mapper>
