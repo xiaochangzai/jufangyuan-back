@@ -103,7 +103,7 @@ public class SystemController {
        file = null;
        Map<String, Object> params = new HashMap<>();
        params.put("scene", id);  //参数
-       params.put("page", "pages/friendAnswer/friendAnswer?id=" + id); //位置
+       params.put("page", "pages/friendAnswer/friendAnswer"); //位置
        params.put("width", 430);
 
        CloseableHttpClient  httpClient = HttpClientBuilder.create().build();

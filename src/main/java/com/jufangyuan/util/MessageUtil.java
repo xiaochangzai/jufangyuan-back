@@ -73,17 +73,17 @@ public class MessageUtil {
     
     public static String getRequestXml(SortedMap<Object, Object> parameters) {  
         StringBuffer sb = new StringBuffer();  
-        sb.append("<xml>");  
+        sb.append("<xml>\n\t");  
         Set es = parameters.entrySet();  
         Iterator it = es.iterator();  
         while (it.hasNext()) {  
             Map.Entry entry = (Map.Entry) it.next();  
-            String k = entry.getKey().toString();  
-            String v = entry.getValue().toString();   
+            String k = entry.getKey().toString().trim();  
+            String v = entry.getValue().toString().trim();   
             if ("attach".equalsIgnoreCase(k) || "body".equalsIgnoreCase(k) || "sign".equalsIgnoreCase(k)) {  
-                sb.append("<" + k + ">" + "<![CDATA[" + v + "]]></" + k + ">");  
+                sb.append("<" + k + ">" + "<![CDATA[" + v + "]]></" + k + ">\n");  
             } else {  
-                sb.append("<" + k + ">" + v + "</" + k + ">");  
+                sb.append("<" + k + ">" + v + "</" + k + ">\n");  
             }  
         }  
         sb.append("</xml>");  

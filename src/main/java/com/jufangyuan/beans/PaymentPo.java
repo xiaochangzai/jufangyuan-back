@@ -19,7 +19,8 @@ public class PaymentPo {
     private String notify_url;//通知地址      
     private String trade_type;//交易类型      
     private String limit_pay;//指定支付方式   
-    private String openid;//用户标识   
+    private String openid;//用户标识  
+    private String sign_type;
 	public String getAppid() {
 		return appid;
 	}
@@ -133,6 +134,12 @@ public class PaymentPo {
 	}
 	public void setOpenid(String openid) {
 		this.openid = openid;
+	}
+	public String getSign_type() {
+		return sign_type;
+	}
+	public void setSign_type(String sign_type) {
+		this.sign_type = sign_type;
 	}
    
     

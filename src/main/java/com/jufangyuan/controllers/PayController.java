@@ -65,7 +65,7 @@ public class PayController {
         String today = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());   
         String code = PayUtil.createCode(8);   
         String out_trade_no = mch_id+today+code;//商户订单号   
-        String spbill_create_ip = ip;//终端IP   
+        String spbill_create_ip = request.getRemoteAddr();//终端IP   
         String notify_url = "http://www.weixin.qq.com/wxpay/pay.php";//通知地址   
         String trade_type = "JSAPI";//交易类型    
         String openid="ot14n4yt0DOLBd_qrYmVbtvNpplU";//用户标识   
@@ -82,7 +82,7 @@ public class PayController {
         paymentPo.setNotify_url(notify_url);   
         paymentPo.setTrade_type(trade_type);   
         paymentPo.setOpenid(openid);   
-        
+        paymentPo.setSign_type("MD5");
         
         //--------------------
         
@@ -93,10 +93,11 @@ public class PayController {
         packageParams.put("body", newbody);//支付主体
         packageParams.put("out_trade_no", out_trade_no);//编号
         packageParams.put("total_fee", total_fee);//价格
-        // packageParams.put("spbill_create_ip", getIp2(request));这里之前加了ip，但是总是获取sign失败，原因不明，之后就注释掉了
+         packageParams.put("spbill_create_ip", ip);//这里之前加了ip，但是总是获取sign失败，原因不明，之后就注释掉了
         packageParams.put("notify_url", notify_url);//支付返回地址，不用纠结这个东西，我就是随便写了一个接口，内容什么都没有
         packageParams.put("trade_type", "JSAPI");//这个api有，固定的
         packageParams.put("openid", openid);//openid
+//        packageParams.put("sign_type", "MD5");
         //获取sign
         String sign = PayCommonUtil.createSign("UTF-8", packageParams, paySecret);//最后这个是自己设置的32位密钥
         
@@ -121,12 +122,14 @@ public class PayController {
         sParaTemp.put("notify_url",paymentPo.getNotify_url());
         sParaTemp.put("trade_type", paymentPo.getTrade_type());
         sParaTemp.put("openid", paymentPo.getOpenid());
+//        sParaTemp.put("sign_type", "MD5");
         // 除去数组中的空值和签名参数   
         Map sPara = PayUtil.paraFilter(sParaTemp);   
         String prestr = PayUtil.createLinkString(sPara); // 把数组所有元素，按照“参数=参数值”的模式用“&”字符拼接成字符串   
         String key = "&key=" + paySecret; // 商户支付密钥   
         //MD5运算生成签名   
-        String mysign = PayUtil.sign(prestr, key, "utf-8").toUpperCase();   
+//        String mysign = PayUtil.sign(prestr, key, "utf-8").toUpperCase();   
+        String mysign = PayUtil.sign("appid=wx43b4a325dfcf1409&device_info=1&mch_id=1498243132&nonce_str=s4refd6urtfh6u67utdry6&out_trade_no=14982431322018052116382472834531&spbill_create_ip=39.107.122.205&total_fee=10", key, "utf-8").toUpperCase();
         paymentPo.setSign(mysign);   
         //打包要发送的xml
         String respXml = MessageUtil.messageToXML(paymentPo);   
@@ -134,7 +137,7 @@ public class PayController {
         respXml = respXml.replace("__", "_");   
         String url = "https://api.mch.weixin.qq.com/pay/unifiedorder";//统一下单API接口链接   
         String param = respXml;
-        //String result = SendRequestForUrl.sendRequest(url, param);//发起请求  
+//        String result = SendRequestForUrl.sendRequest(url, param);//发起请求  
         System.out.println("==================== param =====================");
         System.out.println(param);
         System.out.println("==========================================");
@@ -143,7 +146,7 @@ public class PayController {
         System.out.println(result);
         System.out.println("-----------------------");
         // 将解析结果存储在HashMap中   
-        Map map = new HashMap();
+        Map<String, String> map = new HashMap();
          InputStream in=new ByteArrayInputStream(result.getBytes());
         // 读取输入流   
         SAXReader reader = new SAXReader();
@@ -159,16 +162,17 @@ public class PayController {
         // 返回信息   
         String return_code = (String) map.get("return_code");//返回状态码   
         String return_msg = (String) map.get("return_msg");//返回信息   
-        System.out.println("return_msg"+return_msg);   
+        System.out.println("return_msg"+return_msg);
         JSONObject JsonObject=new JSONObject() ; 
         
-        if(return_code=="SUCCESS"||return_code.equals(return_code)){   
+        if(return_code=="SUCCESS"||return_code.equals("SUCCESS")){   
             // 业务结果   
             String prepay_id = (String) map.get("prepay_id");//返回的预付单信息   
             String nonceStr=UUIDHexGenerator.generate();   
             JsonObject.put("nonceStr", nonceStr);   
             JsonObject.put("package", "prepay_id="+prepay_id);   
-            Long timeStamp= System.currentTimeMillis()/1000;   
+            Long seconds = System.currentTimeMillis()/1000;   
+            String timeStamp = String.valueOf(seconds).substring(0, 10); //截取前10位
             JsonObject.put("timeStamp", timeStamp+"");   
             String stringSignTemp = "appId="+appid+"&nonceStr=" + nonceStr + "&package=prepay_id=" + prepay_id+ "&signType=MD5&timeStamp=" + timeStamp;   
             //再次签名   
