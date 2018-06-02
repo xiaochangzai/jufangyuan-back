@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jufangyuan.beans.User;
 import com.jufangyuan.beans.WxTockenBean;
 import com.jufangyuan.util.HttpRequest;
+import com.jufangyuan.weixinpay.RandomStringGenerator;
+
 import net.minidev.json.JSONObject;
 
 import org.json.JSONException;
@@ -85,5 +87,12 @@ public class JufangyuanApplicationTests {
     	boolean exit = file.exists();
     	System.out.println("存在或者不存在： " + exit);
     			
+    }
+    @Test
+    public void strTest() {
+    	
+    	System.out.println(RandomStringGenerator.getRandomStringByLength(32));
+    	
+    	
     }
 }

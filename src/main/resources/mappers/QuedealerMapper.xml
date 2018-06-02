@@ -22,6 +22,9 @@
           LEFT JOIN USER u
             ON u.userId = d.`userId`
               WHERE givId=#{vrId}
+          ORDER BY 
+          d.`score`
+          DESC
     </select>
 
     <select id="getDealByUser" parameterType="java.lang.String" resultType="com.jufangyuan.beans.QuedealBean">
